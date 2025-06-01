@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pizza Bentoni - Authentische italienische Pizzas</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container">
+            <a href="#" class="logo">Pizza <span>Bentoni</span></a>
+            <div class="nav-links">
+                <a href="#home">Startseite</a>
+                <a href="#about">Über uns</a>
+                <a href="#menu">Speisekarte</a>
+                <a href="#contact">Kontakt</a>
+                <a href="#" class="btn order-btn">Jetzt bestellen</a>
+            </div>
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="hero" id="home">
+        <div class="container">
+            <div class="hero-content">
+                <h1>Authentische italienische Pizza</h1>
+                <p>Handgemacht mit Liebe und traditionellen Rezepten seit 1985</p>
+                <a href="#menu" class="btn">Speisekarte entdecken</a>
+                <a href="#" class="btn primary-btn">Jetzt bestellen</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- About Section -->
+    <section class="about-section" id="about">
+        <div class="container">
+            <div class="about-content">
+                <h2>Unsere Geschichte</h2>
+                <p>Pizza Bentoni wurde 1985 von Giuseppe Bentoni gegründet, einem leidenschaftlichen Pizzaiolo aus Neapel. Was als kleines Familienunternehmen begann, ist heute eine der beliebtesten Pizzerien der Stadt.</p>
+                <p>Wir verwenden nur die besten Zutaten - unser Mehl kommt direkt aus Italien, unsere Tomaten werden reif geerntet und unser Mozzarella wird täglich frisch zubereitet. Jede Pizza wird im traditionellen Holzofen gebacken.</p>
+                <div class="signature">
+                    <img src="signature.png" alt="Giuseppe Bentoni Unterschrift">
+                    <p>Giuseppe Bentoni, Gründer</p>
+                </div>
+            </div>
+            <div class="about-image">
+                <img src="pizza-chef.jpg" alt="Pizzameister bei der Arbeit">
+            </div>
+        </div>
+    </section>
+
+    <!-- Special Offers -->
+    <section class="offers-section">
+        <div class="container">
+            <h2>Unsere Spezialitäten</h2>
+            <div class="offers-grid">
+                <div class="offer-card">
+                    <div class="offer-icon">
+                        <i class="fas fa-fire"></i>
+                    </div>
+                    <h3>Ofenfrische Pizzen</h3>
+                    <p>Jede Pizza wird einzeln im Holzofen gebacken für den perfekten Geschmack.</p>
+                </div>
+                <div class="offer-card">
+                    <div class="offer-icon">
+                        <i class="fas fa-leaf"></i>
+                    </div>
+                    <h3>Frische Zutaten</h3>
+                    <p>Täglich frische Zutaten aus regionalem und italienischem Anbau.</p>
+                </div>
+                <div class="offer-card">
+                    <div class="offer-icon">
+                        <i class="fas fa-truck"></i>
+                    </div>
+                    <h3>Schnelle Lieferung</h3>
+                    <p>Lieferung innerhalb von 30 Minuten oder Sie erhalten einen Gutschein.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Menu Section -->
+    <section class="menu-section" id="menu">
+        <div class="container">
+            <h2>Unsere Speisekarte</h2>
+            <p class="menu-subtitle">Alle Pizzen sind in den Größen 26cm, 32cm und 40cm erhältlich</p>
+            
+            <div class="menu-categories">
+                <button class="category-btn active" data-category="all">Alle</button>
+                <button class="category-btn" data-category="classic">Klassiker</button>
+                <button class="category-btn" data-category="special">Spezialitäten</button>
+                <button class="category-btn" data-category="vegetarian">Vegetarisch</button>
+            </div>
+            
+            <div class="menu-items">
+                <!-- Pizza items will be loaded here dynamically -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Pizza Customizer Modal -->
+    <div class="modal" id="pizzaModal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <div class="modal-body">
+                <div class="modal-image">
+                    <img id="modalPizzaImage" src="" alt="">
+                </div>
+                <div class="modal-details">
+                    <h2 id="modalPizzaName"></h2>
+                    <p id="modalPizzaDescription"></p>
+                    <p class="price" id="modalPizzaPrice"></p>
+                    
+                    <div class="size-selector">
+                        <h3>Größe wählen</h3>
+                        <div class="size-options">
+                            <label>
+                                <input type="radio" name="size" value="26" checked>
+                                <span>26cm (€<span class="size-price" data-size="26"></span>)</span>
+                            </label>
+                            <label>
+                                <input type="radio" name="size" value="32">
+                                <span>32cm (€<span class="size-price" data-size="32"></span>)</span>
+                            </label>
+                            <label>
+                                <input type="radio" name="size" value="40">
+                                <span>40cm (€<span class="size-price" data-size="40"></span>)</span>
+                            </label>
+                        </div>
+                    </div>
+                    
+                    <div class="toppings-selector">
+                        <h3>Extras hinzufügen (€0.80 pro Zutat)</h3>
+                        <div class="toppings-grid" id="toppingsContainer">
+                            <!-- Toppings will be loaded here -->
+                        </div>
+                    </div>
+                    
+                    <div class="quantity-selector">
+                        <h3>Menge</h3>
+                        <div class="quantity-control">
+                            <button class="quantity-btn minus">-</button>
+                            <input type="number" value="1" min="1" id="quantity">
+                            <button class="quantity-btn plus">+</button>
+                        </div>
+                    </div>
+                    
+                    <button class="btn primary-btn add-to-cart">Zum Warenkorb hinzufügen</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Testimonials -->
+    <section class="testimonials-section">
+        <div class="container">
+            <h2>Was unsere Kunden sagen</h2>
+            <div class="testimonials-slider">
+                <div class="testimonial">
+                    <div class="rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <p>"Die beste Pizza der Stadt! Der Teig ist perfekt und die Zutaten schmecken immer frisch. Mein Favorit ist die Diavola mit extra scharfen Peperoni."</p>
+                    <div class="customer">
+                        <img src="customer1.jpg" alt="Kunde">
+                        <span>Michael Schmidt</span>
+                    </div>
+                </div>
+                <div class="testimonial">
+                    <div class="rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <p>"Wir bestellen regelmäßig bei Pizza Bentoni. Die Lieferung ist immer pünktlich und die Pizza kommt heiß an. Besonders empfehlenswert ist die Truffel-Pizza!"</p>
+                    <div class="customer">
+                        <img src="customer2.jpg" alt="Kunde">
+                        <span>Sarah Müller</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact-section" id="contact">
+        <div class="container">
+            <div class="contact-info">
+                <h2>Kontakt</h2>
+                <div class="info-item">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <p>Bentonistraße 12, 12345 Musterstadt</p>
+                </div>
+                <div class="info-item">
+                    <i class="fas fa-phone"></i>
+                    <p>+49 123 4567890</p>
+                </div>
+                <div class="info-item">
+                    <i class="fas fa-envelope"></i>
+                    <p>bestellung@pizza-bentoni.de</p>
+                </div>
+                <div class="info-item">
+                    <i class="fas fa-clock"></i>
+                    <p>Öffnungszeiten:<br>
+                    Mo-Do: 11:00 - 22:00<br>
+                    Fr-Sa: 11:00 - 23:00<br>
+                    So: 12:00 - 22:00</p>
+                </div>
+            </div>
+            <div class="contact-map">
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2428.123456789012!2d13.12345678901234!3d52.12345678901234!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNTLCsDA3JzI0LjQiTiAxM8KwMDcnMjQuNCJF!5e0!3m2!1sde!2sde!4v1234567890123!5m2!1sde!2sde" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <h3>Pizza Bentoni</h3>
+                    <p>Authentische italienische Pizza seit 1985. Handgemacht mit Liebe und traditionellen Rezepten.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                    </div>
+                </div>
+                <div class="footer-col">
+                    <h3>Links</h3>
+                    <ul>
+                        <li><a href="#home">Startseite</a></li>
+                        <li><a href="#menu">Speisekarte</a></li>
+                        <li><a href="#about">Über uns</a></li>
+                        <li><a href="#contact">Kontakt</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h3>Kontakt</h3>
+                    <ul>
+                        <li>Bentonistraße 12</li>
+                        <li>12345 Musterstadt</li>
+                        <li>+49 123 4567890</li>
+                        <li>bestellung@pizza-bentoni.de</li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h3>Newsletter</h3>
+                    <p>Abonnieren Sie unseren Newsletter für exklusive Angebote.</p>
+                    <form class="newsletter-form">
+                        <input type="email" placeholder="Ihre E-Mail-Adresse" required>
+                        <button type="submit" class="btn">Abonnieren</button>
+                    </form>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2023 Pizza Bentoni. Alle Rechte vorbehalten.</p>
+                <div class="legal-links">
+                    <a href="#">Impressum</a>
+                    <a href="#">Datenschutz</a>
+                    <a href="#">AGB</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Shopping Cart Sidebar -->
+    <div class="cart-sidebar">
+        <div class="cart-header">
+            <h3>Ihr Warenkorb</h3>
+            <button class="close-cart">&times;</button>
+        </div>
+        <div class="cart-items">
+            <!-- Cart items will be loaded here -->
+        </div>
+        <div class="cart-total">
+            <p>Gesamt: <span class="total-price">€0.00</span></p>
+            <button class="btn primary-btn checkout-btn">Zur Kasse gehen</button>
+        </div>
+    </div>
+    <div class="cart-overlay"></div>
+
+    <!-- Cart Icon -->
+    <div class="cart-icon">
+        <i class="fas fa-shopping-cart"></i>
+        <span class="cart-count">0</span>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
