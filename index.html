@@ -1,308 +1,610 @@
 <!DOCTYPE html>
-<html lang="de">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pizza Bentoni - Authentische italienische Pizzas</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <link rel="stylesheet" href="styles.css">
+    <title>What is Walter White doing? | Video Archive</title>
+    <meta name="description" content="Professional archive of Walter White video experiments">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #2c3e50;
+            --secondary: #e74c3c;
+            --accent: #f39c12;
+            --light: #ecf0f1;
+            --dark: #2c3e50;
+            --gray: #95a5a6;
+            --dark-gray: #7f8c8d;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #f5f7fa;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            background: linear-gradient(135deg, var(--primary), var(--dark));
+            color: white;
+            padding: 2rem 0;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            margin-bottom: 2rem;
+            border-radius: 0 0 8px 8px;
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .logo i {
+            font-size: 2.5rem;
+            color: var(--accent);
+        }
+        
+        .logo-text h1 {
+            font-weight: 700;
+            font-size: 2rem;
+            margin-bottom: 0.2rem;
+        }
+        
+        .logo-text p {
+            font-weight: 300;
+            opacity: 0.9;
+            font-size: 0.9rem;
+        }
+        
+        .last-updated {
+            background-color: rgba(0,0,0,0.2);
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+        }
+        
+        .main-content {
+            display: grid;
+            grid-template-columns: 1fr 300px;
+            gap: 30px;
+        }
+        
+        @media (max-width: 768px) {
+            .main-content {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        .video-player-section {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            overflow: hidden;
+        }
+        
+        .video-container {
+            position: relative;
+            padding-bottom: 56.25%; /* 16:9 aspect ratio */
+            height: 0;
+            background-color: #000;
+        }
+        
+        .video-container video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+        
+        .video-info {
+            padding: 20px;
+        }
+        
+        .video-info h2 {
+            color: var(--primary);
+            margin-bottom: 10px;
+            font-weight: 500;
+        }
+        
+        .video-meta {
+            display: flex;
+            gap: 15px;
+            color: var(--gray);
+            font-size: 0.9rem;
+            margin-bottom: 15px;
+        }
+        
+        .video-description {
+            color: var(--dark-gray);
+            line-height: 1.7;
+        }
+        
+        .sidebar {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        
+        .video-list-container {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            overflow: hidden;
+        }
+        
+        .section-header {
+            background: linear-gradient(135deg, var(--primary), var(--dark));
+            color: white;
+            padding: 15px 20px;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .section-header i {
+            font-size: 1.1rem;
+        }
+        
+        .video-list {
+            max-height: 500px;
+            overflow-y: auto;
+        }
+        
+        .video-item {
+            padding: 15px 20px;
+            border-bottom: 1px solid #eee;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .video-item:hover {
+            background-color: #f8f9fa;
+        }
+        
+        .video-item.active {
+            background-color: #e8f4fc;
+            border-left: 3px solid var(--secondary);
+        }
+        
+        .video-item-thumbnail {
+            width: 60px;
+            height: 40px;
+            background-color: #eee;
+            border-radius: 4px;
+            overflow: hidden;
+            flex-shrink: 0;
+            position: relative;
+        }
+        
+        .video-item-thumbnail img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .video-item-thumbnail i {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: var(--gray);
+        }
+        
+        .video-item-info {
+            flex-grow: 1;
+        }
+        
+        .video-item-title {
+            font-weight: 500;
+            margin-bottom: 3px;
+            font-size: 0.95rem;
+        }
+        
+        .video-item-date {
+            color: var(--gray);
+            font-size: 0.8rem;
+        }
+        
+        .no-videos {
+            padding: 30px 20px;
+            text-align: center;
+            color: var(--gray);
+        }
+        
+        .stats-container {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            overflow: hidden;
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            padding: 20px;
+        }
+        
+        .stat-item {
+            text-align: center;
+        }
+        
+        .stat-value {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 5px;
+        }
+        
+        .stat-label {
+            font-size: 0.8rem;
+            color: var(--gray);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        footer {
+            text-align: center;
+            margin-top: 3rem;
+            padding: 2rem 0;
+            color: var(--gray);
+            font-size: 0.9rem;
+            border-top: 1px solid #eee;
+        }
+        
+        .loading {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(0,0,0,0.1);
+            border-radius: 50%;
+            border-top-color: var(--primary);
+            animation: spin 1s ease-in-out infinite;
+        }
+        
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+    </style>
 </head>
 <body>
-    <!-- Navigation -->
-    <nav class="navbar">
-        <div class="container">
-            <a href="#" class="logo">Pizza <span>Bentoni</span></a>
-            <div class="nav-links">
-                <a href="#home">Startseite</a>
-                <a href="#about">Über uns</a>
-                <a href="#menu">Speisekarte</a>
-                <a href="#contact">Kontakt</a>
-                <a href="#" class="btn order-btn">Jetzt bestellen</a>
+    <header>
+        <div class="container header-content">
+            <div class="logo">
+                <i class="fas fa-flask"></i>
+                <div class="logo-text">
+                    <h1>What is Walter White doing?</h1>
+                    <p>Chemical Experiments Video Archive</p>
+                </div>
             </div>
-            <div class="hamburger">
-                <span></span>
-                <span></span>
-                <span></span>
-            </div>
-        </div>
-    </nav>
-
-    <!-- Hero Section -->
-    <header class="hero" id="home">
-        <div class="container">
-            <div class="hero-content">
-                <h1>Authentische italienische Pizza</h1>
-                <p>Handgemacht mit Liebe und traditionellen Rezepten seit 1985</p>
-                <a href="#menu" class="btn">Speisekarte entdecken</a>
-                <a href="#" class="btn primary-btn">Jetzt bestellen</a>
+            <div class="last-updated" id="lastUpdated">
+                <i class="fas fa-sync-alt"></i> <span>Loading...</span>
             </div>
         </div>
     </header>
-
-    <!-- About Section -->
-    <section class="about-section" id="about">
-        <div class="container">
-            <div class="about-content">
-                <h2>Unsere Geschichte</h2>
-                <p>Pizza Bentoni wurde 1985 von Giuseppe Bentoni gegründet, einem leidenschaftlichen Pizzaiolo aus Neapel. Was als kleines Familienunternehmen begann, ist heute eine der beliebtesten Pizzerien der Stadt.</p>
-                <p>Wir verwenden nur die besten Zutaten - unser Mehl kommt direkt aus Italien, unsere Tomaten werden reif geerntet und unser Mozzarella wird täglich frisch zubereitet. Jede Pizza wird im traditionellen Holzofen gebacken.</p>
-                <div class="signature">
-                    <img src="signature.png" alt="Giuseppe Bentoni Unterschrift">
-                    <p>Giuseppe Bentoni, Gründer</p>
+    
+    <main class="container">
+        <div class="main-content">
+            <div class="video-player-section">
+                <div class="video-container">
+                    <video id="currentVideo" controls poster="https://i.imgur.com/JqYeYnW.jpg">
+                        Your browser does not support the video tag.
+                    </video>
                 </div>
-            </div>
-            <div class="about-image">
-                <img src="pizza-chef.jpg" alt="Pizzameister bei der Arbeit">
-            </div>
-        </div>
-    </section>
-
-    <!-- Special Offers -->
-    <section class="offers-section">
-        <div class="container">
-            <h2>Unsere Spezialitäten</h2>
-            <div class="offers-grid">
-                <div class="offer-card">
-                    <div class="offer-icon">
-                        <i class="fas fa-fire"></i>
+                <div class="video-info">
+                    <h2 id="videoTitle">Select a video</h2>
+                    <div class="video-meta">
+                        <span><i class="far fa-clock"></i> <span id="videoDuration">--:--</span></span>
+                        <span><i class="far fa-calendar-alt"></i> <span id="videoDate">--/--/----</span></span>
                     </div>
-                    <h3>Ofenfrische Pizzen</h3>
-                    <p>Jede Pizza wird einzeln im Holzofen gebacken für den perfekten Geschmack.</p>
+                    <p class="video-description" id="videoDescription">
+                        Browse through our collection of Walter White's chemical experiments. Select a video from the list to begin playback.
+                    </p>
                 </div>
-                <div class="offer-card">
-                    <div class="offer-icon">
-                        <i class="fas fa-leaf"></i>
-                    </div>
-                    <h3>Frische Zutaten</h3>
-                    <p>Täglich frische Zutaten aus regionalem und italienischem Anbau.</p>
-                </div>
-                <div class="offer-card">
-                    <div class="offer-icon">
-                        <i class="fas fa-truck"></i>
-                    </div>
-                    <h3>Schnelle Lieferung</h3>
-                    <p>Lieferung innerhalb von 30 Minuten oder Sie erhalten einen Gutschein.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Menu Section -->
-    <section class="menu-section" id="menu">
-        <div class="container">
-            <h2>Unsere Speisekarte</h2>
-            <p class="menu-subtitle">Alle Pizzen sind in den Größen 26cm, 32cm und 40cm erhältlich</p>
-            
-            <div class="menu-categories">
-                <button class="category-btn active" data-category="all">Alle</button>
-                <button class="category-btn" data-category="classic">Klassiker</button>
-                <button class="category-btn" data-category="special">Spezialitäten</button>
-                <button class="category-btn" data-category="vegetarian">Vegetarisch</button>
             </div>
             
-            <div class="menu-items">
-                <!-- Pizza items will be loaded here dynamically -->
-            </div>
-        </div>
-    </section>
-
-    <!-- Pizza Customizer Modal -->
-    <div class="modal" id="pizzaModal">
-        <div class="modal-content">
-            <span class="close-modal">&times;</span>
-            <div class="modal-body">
-                <div class="modal-image">
-                    <img id="modalPizzaImage" src="" alt="">
-                </div>
-                <div class="modal-details">
-                    <h2 id="modalPizzaName"></h2>
-                    <p id="modalPizzaDescription"></p>
-                    <p class="price" id="modalPizzaPrice"></p>
-                    
-                    <div class="size-selector">
-                        <h3>Größe wählen</h3>
-                        <div class="size-options">
-                            <label>
-                                <input type="radio" name="size" value="26" checked>
-                                <span>26cm (€<span class="size-price" data-size="26"></span>)</span>
-                            </label>
-                            <label>
-                                <input type="radio" name="size" value="32">
-                                <span>32cm (€<span class="size-price" data-size="32"></span>)</span>
-                            </label>
-                            <label>
-                                <input type="radio" name="size" value="40">
-                                <span>40cm (€<span class="size-price" data-size="40"></span>)</span>
-                            </label>
+            <div class="sidebar">
+                <div class="video-list-container">
+                    <div class="section-header">
+                        <i class="fas fa-list"></i>
+                        <span>Video Archive</span>
+                        <span style="margin-left: auto; font-size: 0.8rem;" id="videoCount">
+                            <span class="loading"></span>
+                        </span>
+                    </div>
+                    <div class="video-list" id="videoList">
+                        <div class="no-videos">
+                            <i class="fas fa-spinner fa-spin"></i> Scanning for videos...
                         </div>
                     </div>
-                    
-                    <div class="toppings-selector">
-                        <h3>Extras hinzufügen (€0.80 pro Zutat)</h3>
-                        <div class="toppings-grid" id="toppingsContainer">
-                            <!-- Toppings will be loaded here -->
+                </div>
+                
+                <div class="stats-container">
+                    <div class="section-header">
+                        <i class="fas fa-chart-bar"></i>
+                        <span>Archive Stats</span>
+                    </div>
+                    <div class="stats-grid">
+                        <div class="stat-item">
+                            <div class="stat-value" id="totalVideos">0</div>
+                            <div class="stat-label">Videos</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-value" id="newToday">0</div>
+                            <div class="stat-label">New Today</div>
                         </div>
                     </div>
-                    
-                    <div class="quantity-selector">
-                        <h3>Menge</h3>
-                        <div class="quantity-control">
-                            <button class="quantity-btn minus">-</button>
-                            <input type="number" value="1" min="1" id="quantity">
-                            <button class="quantity-btn plus">+</button>
-                        </div>
-                    </div>
-                    
-                    <button class="btn primary-btn add-to-cart">Zum Warenkorb hinzufügen</button>
                 </div>
             </div>
         </div>
-    </div>
-
-    <!-- Testimonials -->
-    <section class="testimonials-section">
+    </main>
+    
+    <footer>
         <div class="container">
-            <h2>Was unsere Kunden sagen</h2>
-            <div class="testimonials-slider">
-                <div class="testimonial">
-                    <div class="rating">
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                    </div>
-                    <p>"Die beste Pizza der Stadt! Der Teig ist perfekt und die Zutaten schmecken immer frisch. Mein Favorit ist die Diavola mit extra scharfen Peperoni."</p>
-                    <div class="customer">
-                        <img src="customer1.jpg" alt="Kunde">
-                        <span>Michael Schmidt</span>
-                    </div>
-                </div>
-                <div class="testimonial">
-                    <div class="rating">
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                    </div>
-                    <p>"Wir bestellen regelmäßig bei Pizza Bentoni. Die Lieferung ist immer pünktlich und die Pizza kommt heiß an. Besonders empfehlenswert ist die Truffel-Pizza!"</p>
-                    <div class="customer">
-                        <img src="customer2.jpg" alt="Kunde">
-                        <span>Sarah Müller</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Contact Section -->
-    <section class="contact-section" id="contact">
-        <div class="container">
-            <div class="contact-info">
-                <h2>Kontakt</h2>
-                <div class="info-item">
-                    <i class="fas fa-map-marker-alt"></i>
-                    <p>Bentonistraße 12, 12345 Musterstadt</p>
-                </div>
-                <div class="info-item">
-                    <i class="fas fa-phone"></i>
-                    <p>+49 123 4567890</p>
-                </div>
-                <div class="info-item">
-                    <i class="fas fa-envelope"></i>
-                    <p>bestellung@pizza-bentoni.de</p>
-                </div>
-                <div class="info-item">
-                    <i class="fas fa-clock"></i>
-                    <p>Öffnungszeiten:<br>
-                    Mo-Do: 11:00 - 22:00<br>
-                    Fr-Sa: 11:00 - 23:00<br>
-                    So: 12:00 - 22:00</p>
-                </div>
-            </div>
-            <div class="contact-map">
-                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2428.123456789012!2d13.12345678901234!3d52.12345678901234!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNTLCsDA3JzI0LjQiTiAxM8KwMDcnMjQuNCJF!5e0!3m2!1sde!2sde!4v1234567890123!5m2!1sde!2sde" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
-            </div>
-        </div>
-    </section>
-
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="container">
-            <div class="footer-grid">
-                <div class="footer-col">
-                    <h3>Pizza Bentoni</h3>
-                    <p>Authentische italienische Pizza seit 1985. Handgemacht mit Liebe und traditionellen Rezepten.</p>
-                    <div class="social-links">
-                        <a href="#"><i class="fab fa-facebook-f"></i></a>
-                        <a href="#"><i class="fab fa-instagram"></i></a>
-                        <a href="#"><i class="fab fa-twitter"></i></a>
-                    </div>
-                </div>
-                <div class="footer-col">
-                    <h3>Links</h3>
-                    <ul>
-                        <li><a href="#home">Startseite</a></li>
-                        <li><a href="#menu">Speisekarte</a></li>
-                        <li><a href="#about">Über uns</a></li>
-                        <li><a href="#contact">Kontakt</a></li>
-                    </ul>
-                </div>
-                <div class="footer-col">
-                    <h3>Kontakt</h3>
-                    <ul>
-                        <li>Bentonistraße 12</li>
-                        <li>12345 Musterstadt</li>
-                        <li>+49 123 4567890</li>
-                        <li>bestellung@pizza-bentoni.de</li>
-                    </ul>
-                </div>
-                <div class="footer-col">
-                    <h3>Newsletter</h3>
-                    <p>Abonnieren Sie unseren Newsletter für exklusive Angebote.</p>
-                    <form class="newsletter-form">
-                        <input type="email" placeholder="Ihre E-Mail-Adresse" required>
-                        <button type="submit" class="btn">Abonnieren</button>
-                    </form>
-                </div>
-            </div>
-            <div class="footer-bottom">
-                <p>&copy; 2023 Pizza Bentoni. Alle Rechte vorbehalten.</p>
-                <div class="legal-links">
-                    <a href="#">Impressum</a>
-                    <a href="#">Datenschutz</a>
-                    <a href="#">AGB</a>
-                </div>
-            </div>
+            <p>© 2023 Walter White Chemical Experiments Archive. All rights reserved.</p>
+            <p>For educational purposes only. Do not attempt these experiments at home.</p>
         </div>
     </footer>
 
-    <!-- Shopping Cart Sidebar -->
-    <div class="cart-sidebar">
-        <div class="cart-header">
-            <h3>Ihr Warenkorb</h3>
-            <button class="close-cart">&times;</button>
-        </div>
-        <div class="cart-items">
-            <!-- Cart items will be loaded here -->
-        </div>
-        <div class="cart-total">
-            <p>Gesamt: <span class="total-price">€0.00</span></p>
-            <button class="btn primary-btn checkout-btn">Zur Kasse gehen</button>
-        </div>
-    </div>
-    <div class="cart-overlay"></div>
-
-    <!-- Cart Icon -->
-    <div class="cart-icon">
-        <i class="fas fa-shopping-cart"></i>
-        <span class="cart-count">0</span>
-    </div>
-
-    <script src="script.js"></script>
+    <script>
+        // Configuration
+        const config = {
+            videoPrefix: 'video',
+            videoExtension: '.mp4',
+            thumbnailExtension: '.jpg',
+            defaultThumbnail: 'https://i.imgur.com/JqYeYnW.jpg',
+            scanInterval: 60000, // 1 minute
+            autoPlay: true
+        };
+        
+        // State
+        let videoData = [];
+        let currentVideoIndex = -1;
+        
+        // DOM Elements
+        const videoElement = document.getElementById('currentVideo');
+        const videoListElement = document.getElementById('videoList');
+        const videoTitleElement = document.getElementById('videoTitle');
+        const videoDurationElement = document.getElementById('videoDuration');
+        const videoDateElement = document.getElementById('videoDate');
+        const videoDescriptionElement = document.getElementById('videoDescription');
+        const lastUpdatedElement = document.getElementById('lastUpdated').querySelector('span');
+        const videoCountElement = document.getElementById('videoCount');
+        const totalVideosElement = document.getElementById('totalVideos');
+        const newTodayElement = document.getElementById('newToday');
+        
+        // Format duration
+        function formatDuration(seconds) {
+            if (!seconds) return '--:--';
+            const mins = Math.floor(seconds / 60);
+            const secs = Math.floor(seconds % 60);
+            return `${mins}:${secs < 10 ? '0' : ''}${secs}`;
+        }
+        
+        // Format date
+        function formatDate(date) {
+            if (!date) return '--/--/----';
+            return new Date(date).toLocaleDateString();
+        }
+        
+        // Update last scanned time
+        function updateLastScanned() {
+            const now = new Date();
+            lastUpdatedElement.textContent = now.toLocaleString();
+        }
+        
+        // Check if a file exists
+        async function fileExists(url) {
+            try {
+                const response = await fetch(url, { method: 'HEAD' });
+                return response.ok;
+            } catch (error) {
+                return false;
+            }
+        }
+        
+        // Get video metadata
+        async function getVideoMetadata(videoUrl) {
+            return new Promise((resolve) => {
+                const video = document.createElement('video');
+                video.src = videoUrl;
+                
+                video.addEventListener('loadedmetadata', () => {
+                    resolve({
+                        duration: video.duration,
+                        width: video.videoWidth,
+                        height: video.videoHeight
+                    });
+                });
+                
+                video.addEventListener('error', () => {
+                    resolve({
+                        duration: 0,
+                        width: 0,
+                        height: 0
+                    });
+                });
+            });
+        }
+        
+        // Scan for videos
+        async function scanVideos() {
+            try {
+                videoData = [];
+                let i = 1;
+                let videosFound = 0;
+                let newTodayCount = 0;
+                const today = new Date().toDateString();
+                
+                // Clear loading message if it exists
+                const noVideosElement = videoListElement.querySelector('.no-videos');
+                if (noVideosElement) {
+                    noVideosElement.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Scanning for videos...';
+                }
+                
+                // Check for videos sequentially
+                while (true) {
+                    const videoName = `${config.videoPrefix}${i}${config.videoExtension}`;
+                    const videoUrl = `./${videoName}`;
+                    const thumbUrl = `./${config.videoPrefix}${i}${config.thumbnailExtension}`;
+                    
+                    if (await fileExists(videoUrl)) {
+                        const metadata = await getVideoMetadata(videoUrl);
+                        const thumbExists = await fileExists(thumbUrl);
+                        
+                        // Simulate upload date (in a real app, this would come from server)
+                        const uploadDate = new Date();
+                        uploadDate.setDate(uploadDate.getDate() - Math.floor(Math.random() * 30));
+                        
+                        if (uploadDate.toDateString() === today) {
+                            newTodayCount++;
+                        }
+                        
+                        videoData.push({
+                            id: i,
+                            name: videoName,
+                            url: videoUrl,
+                            thumbnail: thumbExists ? thumbUrl : config.defaultThumbnail,
+                            duration: metadata.duration,
+                            uploadDate: uploadDate.toISOString(),
+                            description: `Chemical experiment #${i} conducted by Walter White. Recorded on ${uploadDate.toLocaleDateString()}.`
+                        });
+                        
+                        videosFound++;
+                        i++;
+                    } else {
+                        break;
+                    }
+                }
+                
+                // Update UI
+                updateVideoList();
+                updateStats(videosFound, newTodayCount);
+                updateLastScanned();
+                
+                // Auto-play first video if none is playing
+                if (currentVideoIndex === -1 && videoData.length > 0) {
+                    playVideo(0);
+                }
+                
+                return videosFound;
+            } catch (error) {
+                console.error('Error scanning videos:', error);
+                if (noVideosElement) {
+                    noVideosElement.innerHTML = '<i class="fas fa-exclamation-triangle"></i> Error scanning for videos';
+                }
+                return 0;
+            }
+        }
+        
+        // Update video list
+        function updateVideoList() {
+            videoListElement.innerHTML = '';
+            
+            if (videoData.length === 0) {
+                const noVideosElement = document.createElement('div');
+                noVideosElement.className = 'no-videos';
+                noVideosElement.innerHTML = '<i class="far fa-folder-open"></i> No videos found. Add video1.mp4, video2.mp4 etc. to your repository.';
+                videoListElement.appendChild(noVideosElement);
+                return;
+            }
+            
+            videoData.forEach((video, index) => {
+                const videoItem = document.createElement('div');
+                videoItem.className = `video-item ${index === currentVideoIndex ? 'active' : ''}`;
+                videoItem.innerHTML = `
+                    <div class="video-item-thumbnail">
+                        ${video.thumbnail.startsWith('http') ? 
+                            `<img src="${video.thumbnail}" alt="Thumbnail">` : 
+                            `<img src="${video.thumbnail}" onerror="this.onerror=null;this.parentElement.innerHTML='<i class=\\'fas fa-video\\'></i>';" alt="Thumbnail">`}
+                    </div>
+                    <div class="video-item-info">
+                        <div class="video-item-title">${video.name}</div>
+                        <div class="video-item-date">${formatDate(video.uploadDate)} • ${formatDuration(video.duration)}</div>
+                    </div>
+                `;
+                
+                videoItem.addEventListener('click', () => playVideo(index));
+                videoListElement.appendChild(videoItem);
+            });
+        }
+        
+        // Update stats
+        function updateStats(total, newToday) {
+            videoCountElement.textContent = `${total}`;
+            totalVideosElement.textContent = total;
+            newTodayElement.textContent = newToday;
+        }
+        
+        // Play video
+        function playVideo(index) {
+            if (index < 0 || index >= videoData.length) return;
+            
+            const video = videoData[index];
+            currentVideoIndex = index;
+            
+            // Update video element
+            videoElement.src = video.url;
+            videoElement.load();
+            if (config.autoPlay) {
+                videoElement.play().catch(e => console.log('Autoplay prevented:', e));
+            }
+            
+            // Update video info
+            videoTitleElement.textContent = `Experiment #${video.id}`;
+            videoDurationElement.textContent = formatDuration(video.duration);
+            videoDateElement.textContent = formatDate(video.uploadDate);
+            videoDescriptionElement.textContent = video.description;
+            
+            // Update active state in list
+            updateVideoList();
+        }
+        
+        // Initialize
+        async function init() {
+            // First scan
+            await scanVideos();
+            
+            // Periodic scanning
+            setInterval(scanVideos, config.scanInterval);
+            
+            // Update duration display when video is playing
+            videoElement.addEventListener('timeupdate', () => {
+                if (!isNaN(videoElement.duration)) {
+                    videoDurationElement.textContent = formatDuration(videoElement.duration);
+                }
+            });
+        }
+        
+        // Start the app
+        document.addEventListener('DOMContentLoaded', init);
+    </script>
 </body>
 </html>
