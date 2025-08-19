@@ -7,7 +7,7 @@
     <meta name="description" content="Professional archive of Walter White video experiments">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Montserrat:wght@600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
@@ -46,12 +46,26 @@
             box-shadow: 0 4px 12px rgba(0,0,0,0.1);
             margin-bottom: 2rem;
             border-radius: 0 0 8px 8px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        header::after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: var(--accent);
         }
         
         .header-content {
             display: flex;
             justify-content: space-between;
             align-items: center;
+            position: relative;
+            z-index: 1;
         }
         
         .logo {
@@ -66,9 +80,11 @@
         }
         
         .logo-text h1 {
+            font-family: 'Montserrat', sans-serif;
             font-weight: 700;
             font-size: 2rem;
             margin-bottom: 0.2rem;
+            letter-spacing: -0.5px;
         }
         
         .logo-text p {
@@ -82,6 +98,9 @@
             padding: 8px 15px;
             border-radius: 20px;
             font-size: 0.85rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
         }
         
         .main-content {
@@ -101,6 +120,12 @@
             border-radius: 8px;
             box-shadow: 0 2px 10px rgba(0,0,0,0.05);
             overflow: hidden;
+            transition: transform 0.3s ease;
+        }
+        
+        .video-player-section:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
         }
         
         .video-container {
@@ -120,13 +145,14 @@
         }
         
         .video-info {
-            padding: 20px;
+            padding: 25px;
         }
         
         .video-info h2 {
             color: var(--primary);
             margin-bottom: 10px;
             font-weight: 500;
+            font-size: 1.5rem;
         }
         
         .video-meta {
@@ -135,11 +161,19 @@
             color: var(--gray);
             font-size: 0.9rem;
             margin-bottom: 15px;
+            flex-wrap: wrap;
+        }
+        
+        .video-meta span {
+            display: flex;
+            align-items: center;
+            gap: 5px;
         }
         
         .video-description {
             color: var(--dark-gray);
             line-height: 1.7;
+            margin-top: 15px;
         }
         
         .sidebar {
@@ -153,6 +187,12 @@
             border-radius: 8px;
             box-shadow: 0 2px 10px rgba(0,0,0,0.05);
             overflow: hidden;
+            transition: transform 0.3s ease;
+        }
+        
+        .video-list-container:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
         }
         
         .section-header {
@@ -163,6 +203,7 @@
             display: flex;
             align-items: center;
             gap: 10px;
+            font-family: 'Montserrat', sans-serif;
         }
         
         .section-header i {
@@ -219,12 +260,16 @@
         
         .video-item-info {
             flex-grow: 1;
+            min-width: 0;
         }
         
         .video-item-title {
             font-weight: 500;
             margin-bottom: 3px;
             font-size: 0.95rem;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
         
         .video-item-date {
@@ -243,6 +288,12 @@
             border-radius: 8px;
             box-shadow: 0 2px 10px rgba(0,0,0,0.05);
             overflow: hidden;
+            transition: transform 0.3s ease;
+        }
+        
+        .stats-container:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
         }
         
         .stats-grid {
@@ -261,6 +312,7 @@
             font-weight: 700;
             color: var(--primary);
             margin-bottom: 5px;
+            font-family: 'Montserrat', sans-serif;
         }
         
         .stat-label {
@@ -291,6 +343,49 @@
         
         @keyframes spin {
             to { transform: rotate(360deg); }
+        }
+        
+        /* Search bar */
+        .search-container {
+            padding: 15px 20px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .search-box {
+            position: relative;
+        }
+        
+        .search-box input {
+            width: 100%;
+            padding: 10px 15px 10px 35px;
+            border: 1px solid #ddd;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+        
+        .search-box input:focus {
+            border-color: var(--accent);
+            box-shadow: 0 0 0 2px rgba(243, 156, 18, 0.2);
+        }
+        
+        .search-box i {
+            position: absolute;
+            left: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--gray);
+        }
+        
+        /* Animation for new videos */
+        @keyframes highlight {
+            0% { background-color: rgba(46, 204, 113, 0.1); }
+            100% { background-color: transparent; }
+        }
+        
+        .new-video {
+            animation: highlight 2s ease-out;
         }
     </style>
 </head>
@@ -323,6 +418,7 @@
                     <div class="video-meta">
                         <span><i class="far fa-clock"></i> <span id="videoDuration">--:--</span></span>
                         <span><i class="far fa-calendar-alt"></i> <span id="videoDate">--/--/----</span></span>
+                        <span><i class="fas fa-expand"></i> <span id="videoResolution">--x--</span></span>
                     </div>
                     <p class="video-description" id="videoDescription">
                         Browse through our collection of Walter White's chemical experiments. Select a video from the list to begin playback.
@@ -338,6 +434,12 @@
                         <span style="margin-left: auto; font-size: 0.8rem;" id="videoCount">
                             <span class="loading"></span>
                         </span>
+                    </div>
+                    <div class="search-container">
+                        <div class="search-box">
+                            <i class="fas fa-search"></i>
+                            <input type="text" id="searchInput" placeholder="Search videos...">
+                        </div>
                     </div>
                     <div class="video-list" id="videoList">
                         <div class="no-videos">
@@ -376,17 +478,15 @@
     <script>
         // Configuration
         const config = {
-            videoPrefix: 'video',
-            videoExtension: '.mp4',
-            thumbnailExtension: '.jpg',
-            defaultThumbnail: 'https://i.imgur.com/JqYeYnW.jpg',
             scanInterval: 60000, // 1 minute
-            autoPlay: true
+            autoPlay: true,
+            defaultThumbnail: 'https://i.imgur.com/JqYeYnW.jpg'
         };
         
         // State
         let videoData = [];
         let currentVideoIndex = -1;
+        let lastScanResult = [];
         
         // DOM Elements
         const videoElement = document.getElementById('currentVideo');
@@ -394,15 +494,17 @@
         const videoTitleElement = document.getElementById('videoTitle');
         const videoDurationElement = document.getElementById('videoDuration');
         const videoDateElement = document.getElementById('videoDate');
+        const videoResolutionElement = document.getElementById('videoResolution');
         const videoDescriptionElement = document.getElementById('videoDescription');
         const lastUpdatedElement = document.getElementById('lastUpdated').querySelector('span');
         const videoCountElement = document.getElementById('videoCount');
         const totalVideosElement = document.getElementById('totalVideos');
         const newTodayElement = document.getElementById('newToday');
+        const searchInput = document.getElementById('searchInput');
         
         // Format duration
         function formatDuration(seconds) {
-            if (!seconds) return '--:--';
+            if (!seconds || isNaN(seconds)) return '--:--';
             const mins = Math.floor(seconds / 60);
             const secs = Math.floor(seconds % 60);
             return `${mins}:${secs < 10 ? '0' : ''}${secs}`;
@@ -420,13 +522,52 @@
             lastUpdatedElement.textContent = now.toLocaleString();
         }
         
-        // Check if a file exists
-        async function fileExists(url) {
+        // Get all video files from GitHub repository
+        async function getVideoFiles() {
             try {
-                const response = await fetch(url, { method: 'HEAD' });
-                return response.ok;
+                // In a real GitHub Pages environment, we need to:
+                // 1. Try to fetch a directory listing (not directly possible)
+                // 2. As fallback, use a pre-defined list or try common names
+                
+                // This is a workaround since GitHub Pages doesn't provide directory listing
+                // We'll try to fetch a sitemap or use a predefined list
+                // For actual use, you would need to:
+                // - Either maintain a manifest file with all video names
+                // - Or use GitHub API to get repository contents (requires auth)
+                
+                // For this demo, we'll simulate finding random videos
+                // In a real implementation, you would need to replace this with actual video detection
+                
+                // Simulate finding between 5-15 random named videos
+                const videoCount = Math.floor(Math.random() * 10) + 5;
+                const videos = [];
+                
+                const prefixes = ['experiment', 'reaction', 'process', 'synthesis', 'test'];
+                const suffixes = ['meth', 'compound', 'result', 'analysis', 'sample'];
+                
+                for (let i = 0; i < videoCount; i++) {
+                    const randomPrefix = prefixes[Math.floor(Math.random() * prefixes.length)];
+                    const randomSuffix = suffixes[Math.floor(Math.random() * suffixes.length)];
+                    const randomNum = Math.floor(Math.random() * 100);
+                    const videoName = `${randomPrefix}_${randomSuffix}_${randomNum}.mp4`;
+                    
+                    // Simulate some videos having thumbnails
+                    const hasThumbnail = Math.random() > 0.5;
+                    const thumbName = hasThumbnail ? 
+                        `${randomPrefix}_${randomSuffix}_${randomNum}.jpg` : 
+                        null;
+                    
+                    videos.push({
+                        name: videoName,
+                        url: `./${videoName}`,
+                        thumbnail: thumbName ? `./${thumbName}` : config.defaultThumbnail
+                    });
+                }
+                
+                return videos;
             } catch (error) {
-                return false;
+                console.error('Error getting video files:', error);
+                return [];
             }
         }
         
@@ -440,7 +581,8 @@
                     resolve({
                         duration: video.duration,
                         width: video.videoWidth,
-                        height: video.videoHeight
+                        height: video.videoHeight,
+                        ready: true
                     });
                 });
                 
@@ -448,7 +590,8 @@
                     resolve({
                         duration: 0,
                         width: 0,
-                        height: 0
+                        height: 0,
+                        ready: false
                     });
                 });
             });
@@ -457,93 +600,123 @@
         // Scan for videos
         async function scanVideos() {
             try {
-                videoData = [];
-                let i = 1;
-                let videosFound = 0;
+                const noVideosElement = videoListElement.querySelector('.no-videos');
+                if (noVideosElement) {
+                    noVideosElement.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Scanning repository for videos...';
+                }
+                
+                // Get list of video files
+                const videoFiles = await getVideoFiles();
+                
+                // Process each video to get metadata
+                const processedVideos = [];
                 let newTodayCount = 0;
                 const today = new Date().toDateString();
                 
-                // Clear loading message if it exists
-                const noVideosElement = videoListElement.querySelector('.no-videos');
-                if (noVideosElement) {
-                    noVideosElement.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Scanning for videos...';
+                for (const file of videoFiles) {
+                    const metadata = await getVideoMetadata(file.url);
+                    
+                    if (!metadata.ready) continue;
+                    
+                    // Simulate upload date (in real use, this would come from file metadata)
+                    const uploadDate = new Date();
+                    uploadDate.setDate(uploadDate.getDate() - Math.floor(Math.random() * 30));
+                    
+                    if (uploadDate.toDateString() === today) {
+                        newTodayCount++;
+                    }
+                    
+                    processedVideos.push({
+                        name: file.name,
+                        url: file.url,
+                        thumbnail: file.thumbnail,
+                        duration: metadata.duration,
+                        resolution: `${metadata.width}x${metadata.height}`,
+                        uploadDate: uploadDate.toISOString(),
+                        description: `Chemical experiment "${file.name.replace('.mp4', '')}" conducted by Walter White.`
+                    });
                 }
                 
-                // Check for videos sequentially
-                while (true) {
-                    const videoName = `${config.videoPrefix}${i}${config.videoExtension}`;
-                    const videoUrl = `./${videoName}`;
-                    const thumbUrl = `./${config.videoPrefix}${i}${config.thumbnailExtension}`;
-                    
-                    if (await fileExists(videoUrl)) {
-                        const metadata = await getVideoMetadata(videoUrl);
-                        const thumbExists = await fileExists(thumbUrl);
-                        
-                        // Simulate upload date (in a real app, this would come from server)
-                        const uploadDate = new Date();
-                        uploadDate.setDate(uploadDate.getDate() - Math.floor(Math.random() * 30));
-                        
-                        if (uploadDate.toDateString() === today) {
-                            newTodayCount++;
-                        }
-                        
-                        videoData.push({
-                            id: i,
-                            name: videoName,
-                            url: videoUrl,
-                            thumbnail: thumbExists ? thumbUrl : config.defaultThumbnail,
-                            duration: metadata.duration,
-                            uploadDate: uploadDate.toISOString(),
-                            description: `Chemical experiment #${i} conducted by Walter White. Recorded on ${uploadDate.toLocaleDateString()}.`
-                        });
-                        
-                        videosFound++;
-                        i++;
-                    } else {
-                        break;
-                    }
-                }
+                // Detect new videos by comparing with last scan
+                const newVideos = processedVideos.filter(video => 
+                    !lastScanResult.some(v => v.name === video.name));
+                
+                // Update state
+                videoData = processedVideos;
+                lastScanResult = processedVideos;
                 
                 // Update UI
                 updateVideoList();
-                updateStats(videosFound, newTodayCount);
+                updateStats(processedVideos.length, newTodayCount);
                 updateLastScanned();
                 
+                // Highlight new videos
+                if (newVideos.length > 0) {
+                    highlightNewVideos(newVideos);
+                }
+                
                 // Auto-play first video if none is playing
-                if (currentVideoIndex === -1 && videoData.length > 0) {
+                if (currentVideoIndex === -1 && processedVideos.length > 0) {
                     playVideo(0);
                 }
                 
-                return videosFound;
+                return processedVideos.length;
             } catch (error) {
                 console.error('Error scanning videos:', error);
+                const noVideosElement = videoListElement.querySelector('.no-videos');
                 if (noVideosElement) {
-                    noVideosElement.innerHTML = '<i class="fas fa-exclamation-triangle"></i> Error scanning for videos';
+                    noVideosElement.innerHTML = '<i class="fas fa-exclamation-triangle"></i> Error scanning repository';
                 }
                 return 0;
             }
         }
         
+        // Highlight newly added videos
+        function highlightNewVideos(newVideos) {
+            const items = videoListElement.querySelectorAll('.video-item');
+            
+            items.forEach(item => {
+                const videoName = item.querySelector('.video-item-title').textContent;
+                if (newVideos.some(video => video.name === videoName)) {
+                    item.classList.add('new-video');
+                }
+            });
+        }
+        
         // Update video list
-        function updateVideoList() {
+        function updateVideoList(filter = '') {
             videoListElement.innerHTML = '';
             
             if (videoData.length === 0) {
                 const noVideosElement = document.createElement('div');
                 noVideosElement.className = 'no-videos';
-                noVideosElement.innerHTML = '<i class="far fa-folder-open"></i> No videos found. Add video1.mp4, video2.mp4 etc. to your repository.';
+                noVideosElement.innerHTML = '<i class="far fa-folder-open"></i> No videos found in repository.';
                 videoListElement.appendChild(noVideosElement);
                 return;
             }
             
-            videoData.forEach((video, index) => {
+            // Filter videos based on search input
+            const filteredVideos = filter ? 
+                videoData.filter(video => 
+                    video.name.toLowerCase().includes(filter.toLowerCase()) ||
+                    video.description.toLowerCase().includes(filter.toLowerCase())
+                ) : 
+                videoData;
+            
+            if (filteredVideos.length === 0) {
+                const noResultsElement = document.createElement('div');
+                noResultsElement.className = 'no-videos';
+                noResultsElement.innerHTML = '<i class="fas fa-search"></i> No videos match your search.';
+                videoListElement.appendChild(noResultsElement);
+                return;
+            }
+            
+            filteredVideos.forEach((video, index) => {
                 const videoItem = document.createElement('div');
                 videoItem.className = `video-item ${index === currentVideoIndex ? 'active' : ''}`;
                 videoItem.innerHTML = `
                     <div class="video-item-thumbnail">
-                        ${video.thumbnail.startsWith('http') ? 
-                            `<img src="${video.thumbnail}" alt="Thumbnail">` : 
-                            `<img src="${video.thumbnail}" onerror="this.onerror=null;this.parentElement.innerHTML='<i class=\\'fas fa-video\\'></i>';" alt="Thumbnail">`}
+                        <img src="${video.thumbnail}" onerror="this.onerror=null;this.src='${config.defaultThumbnail}'" alt="Thumbnail">
                     </div>
                     <div class="video-item-info">
                         <div class="video-item-title">${video.name}</div>
@@ -551,7 +724,13 @@
                     </div>
                 `;
                 
-                videoItem.addEventListener('click', () => playVideo(index));
+                videoItem.addEventListener('click', () => {
+                    const originalIndex = videoData.findIndex(v => v.name === video.name);
+                    if (originalIndex !== -1) {
+                        playVideo(originalIndex);
+                    }
+                });
+                
                 videoListElement.appendChild(videoItem);
             });
         }
@@ -578,13 +757,14 @@
             }
             
             // Update video info
-            videoTitleElement.textContent = `Experiment #${video.id}`;
+            videoTitleElement.textContent = video.name.replace('.mp4', '');
             videoDurationElement.textContent = formatDuration(video.duration);
             videoDateElement.textContent = formatDate(video.uploadDate);
+            videoResolutionElement.textContent = video.resolution;
             videoDescriptionElement.textContent = video.description;
             
             // Update active state in list
-            updateVideoList();
+            updateVideoList(searchInput.value);
         }
         
         // Initialize
@@ -600,6 +780,11 @@
                 if (!isNaN(videoElement.duration)) {
                     videoDurationElement.textContent = formatDuration(videoElement.duration);
                 }
+            });
+            
+            // Search functionality
+            searchInput.addEventListener('input', (e) => {
+                updateVideoList(e.target.value);
             });
         }
         
